@@ -21,6 +21,11 @@ if($resultset<=0){
 }
 else{
     $_SESSION["user"]=$username;
+    $_SESSION['id']='';
+    if($row=mysqli_fetch_assoc($result))
+    {
+        $_SESSION['id']=$row['Id'];
+    }
     echo "1";
 }
 ?>
