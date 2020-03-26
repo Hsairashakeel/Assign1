@@ -17,6 +17,10 @@ namespace EAD_BAL
         {
             return EAD_DAL.UserDAO.IsValidUser(login, pass);
         }
+        public static bool IsValidLogin(String login)
+        {
+            return EAD_DAL.UserDAO.IsValidLogin(login);
+        }
         public static bool IsExistingUser(String login)
         {
             return EAD_DAL.UserDAO.IsExistingUser(login);

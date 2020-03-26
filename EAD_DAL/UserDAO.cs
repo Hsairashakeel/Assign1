@@ -40,6 +40,15 @@ namespace EAD_DAL
                 return helper.Adapter(sqlQuery);
             }
         }
+        public static bool IsValidLogin(String login)
+        {
+            String sqlQuery = "";
+            sqlQuery = String.Format("select * from UsersData WHERE Login = '{0}'  ", login);
+            using (DBhelper helper = new DBhelper())
+            {
+                return helper.Adapter(sqlQuery);
+            }
+        }
         public static bool IsExistingUser(String login)
         {
             String sqlQuery = "";
@@ -103,12 +112,11 @@ namespace EAD_DAL
         public static int resetPassword(String pass, String login)
         {
 
-            String sqlQuery = "";
             String q = string.Format(@"update UsersData SET Password='{0}' WHERE Login='{1}'", pass, login);
 
             using (DBhelper helper = new DBhelper())
             {
-                return helper.ExecuteQuery(sqlQuery);
+                return helper.ExecuteQuery(q);
             }
         }
 

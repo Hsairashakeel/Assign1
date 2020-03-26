@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -64,6 +65,57 @@ namespace Assignment2
             MainScreen mScreen = new MainScreen();
             mScreen.Show();
 
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (emailTxt.Text == "")
+            {
+                MessageBox.Show("Please fill the email field");
+                return;
+            }
+            if (nameTxt.Text == "")
+            {
+                MessageBox.Show("Please fill the username field");
+                return;
+
+            }
+            else
+            {
+                bool result = UserBO.IsValidLogin(nameTxt.Text);
+                if (result == true)
+                {
+                    MessageBox.Show("valid login");
+                    
+
+                }
+                else
+                {
+                    MessageBox.Show("Invalid username");
+                    return;
+
+                }
+                try
+                {
+                    MailAddress mailAdd = new MailAddress(emailTxt.Text);
+                    
+                }
+                catch
+                {
+                    MessageBox.Show("Invalid email address");
+                    return;
+                }
+                this.Hide();
+                sendEmail m = new sendEmail(emailTxt.Text, nameTxt.Text);
+                m.Show();
+
+            }
+        }
+
+        private void nameTxt_TextChanged(object sender, EventArgs e)
+        {
+            
 
         }
     }

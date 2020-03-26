@@ -98,6 +98,7 @@
             this.nameTxt.Name = "nameTxt";
             this.nameTxt.Size = new System.Drawing.Size(137, 20);
             this.nameTxt.TabIndex = 6;
+            this.nameTxt.TextChanged += new System.EventHandler(this.nameTxt_TextChanged);
             // 
             // button2
             // 
@@ -107,6 +108,7 @@
             this.button2.TabIndex = 8;
             this.button2.Text = "Reset Password";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // cancelBtn
             // 
