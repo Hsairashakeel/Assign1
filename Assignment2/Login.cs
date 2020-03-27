@@ -84,14 +84,8 @@ namespace Assignment2
             else
             {
                 bool result = UserBO.IsValidLogin(nameTxt.Text);
-                if (result == true)
-                {
-                    MessageBox.Show("valid login");
-                    
-
-                }
-                else
-                {
+                if (result == false)
+                {                    
                     MessageBox.Show("Invalid username");
                     return;
 

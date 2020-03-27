@@ -49,7 +49,7 @@ namespace Assignment2
                 String fromPassword = "sairashakeel";
                 String fromDisplayNmae = "";
                 MailAddress fromAdress = new MailAddress(fromDisplayEmail, fromDisplayNmae);
-                MailAddress toAddress = new MailAddress("sairashakeel.py@gmail.com");
+                MailAddress toAddress = new MailAddress(email);
                 SmtpClient smtp = new SmtpClient
                 {
                     Host = "smtp.gmail.com",

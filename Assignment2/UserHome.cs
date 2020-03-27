@@ -25,9 +25,13 @@ namespace Assignment2
         private void UserHome_Load(object sender, EventArgs e)
         {
             label1.Text = "Welcome " + name;
-            MessageBox.Show("uuserhome1");
-
-            MessageBox.Show(id.ToString());
+            var dto = new EAD_Entities.UserDTO();
+            dto = EAD_BAL.UserBO.GetUserData(id);
+            var imagName = dto.imageNmae;
+            string applicationBsePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            string imgPath = (applicationBsePath + @"\images\");
+            string path = imgPath + imagName;
+            pictureBox1.Load(path);
 
 
         }
@@ -35,9 +39,6 @@ namespace Assignment2
         private void editProfile_Click(object sender, EventArgs e)
         {
             this.Hide();
-            MessageBox.Show("uuserhome2");
-
-            MessageBox.Show(id.ToString());
             newUserScreen obj = new newUserScreen(id, "U");
             obj.Show();
         }

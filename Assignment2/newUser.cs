@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -25,6 +26,9 @@ namespace Assignment2
 
         private void newUserScreen_Load(object sender, EventArgs e)
         {
+            string applicationBsePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+            System.IO.Directory.CreateDirectory(applicationBsePath + @"\images\");
+
             if (id != 0)
             {
 
@@ -35,8 +39,6 @@ namespace Assignment2
                 nameTxt.Text = dto.Name;
                 passwordTxt.Text = dto.password;
                 loginTxt.Text = dto.Login;
-                MessageBox.Show(dto.password);
-
                 nic.Text = dto.nic;
                 emailTxt.Text = dto.Login;
                 (DOBTxt.Value) = dto.DOB;
@@ -48,6 +50,13 @@ namespace Assignment2
                 else
                 {
                     gen = "Female";
+                }
+                if (dto.imageNmae != "")
+                {
+                    var imagName = dto.imageNmae;
+                    string imgPath = (applicationBsePath + @"\images\");
+                    string path = imgPath + imagName;
+                    profilePhoto.Load(path);
                 }
                 genderTxt.SelectedItem = gen;
                 cricket.Checked = dto.cricket;
@@ -120,6 +129,16 @@ namespace Assignment2
                 MessageBox.Show("Please fill the email field");
                 return;
             }
+            try
+            {
+                MailAddress mailAdd = new MailAddress(emailTxt.Text);
+
+            }
+            catch
+            {
+                MessageBox.Show("Invalid email address");
+                return;
+            }
             if (passwordTxt.Text == "")
             {
                 MessageBox.Show("Please fill the password field");
@@ -173,14 +192,20 @@ namespace Assignment2
             {
                 gen = 'm';
             }
-            MessageBox.Show(gen.ToString());
             bool Cricket = cricket.Checked ? true : false;
             bool Hockey = hockey.Checked ? true : false;
             bool Chess = chess.Checked ? true : false;
+            string uniqName="";
+            if (profilePhoto.Image != null)
+            {
+                string applicationBsePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+                String pathToSaveImage = applicationBsePath + @"\images\";
+                uniqName = Guid.NewGuid().ToString() + ".jpg";
+                string imagPath = pathToSaveImage + uniqName;
+                profilePhoto.Image.Save(imagPath);
+            }
             if (id != 0)
             {
-
-                MessageBox.Show("id!=0");
                 var dto = new EAD_Entities.UserDTO();
                 dto.Name = nameTxt.Text;
                 dto.password = passwordTxt.Text;
@@ -188,7 +213,7 @@ namespace Assignment2
                 dto.nic = nic.Text;
                 dto.DOB = (DOBTxt.Value);
                 dto.gender = gen;
-                dto.imageNmae = profilePhoto.Name;
+                dto.imageNmae = uniqName;
                 dto.createOn = DateTime.Now;
                 dto.cricket = Cricket;
                 dto.chess = Chess;
@@ -233,7 +258,7 @@ namespace Assignment2
                 dto.hockey = Hockey;
                 dto.adress = adressTxt.Text;
                 dto.age = ageTxt.Value;
-                dto.imageNmae = "hello.jpg";
+                dto.imageNmae = uniqName;
                 bool result = UserBO.IsExistingUser(loginTxt.Text);
                 if (result == true)
                 {

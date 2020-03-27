@@ -30,10 +30,8 @@ namespace Assignment2
                 return;
             }
             bool result = EAD_BAL.AdminBO.IsValidUser(nameTxt.Text, passwordTxt.Text);
-            MessageBox.Show(result.ToString());
             if (result == true)
             {
-                MessageBox.Show("home");
                 this.Hide();
                 AdminHome home = new AdminHome();
                 home.Show();
