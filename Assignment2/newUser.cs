@@ -129,16 +129,7 @@ namespace Assignment2
                 MessageBox.Show("Please fill the email field");
                 return;
             }
-            try
-            {
-                MailAddress mailAdd = new MailAddress(emailTxt.Text);
-
-            }
-            catch
-            {
-                MessageBox.Show("Invalid email address");
-                return;
-            }
+           
             if (passwordTxt.Text == "")
             {
                 MessageBox.Show("Please fill the password field");
