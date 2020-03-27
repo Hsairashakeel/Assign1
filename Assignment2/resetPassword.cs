@@ -37,7 +37,7 @@ namespace Assignment2
             int count = EAD_BAL.UserBO.resetPassword(passTxt.Text, login);
             if (count > 0)
             {
-                MessageBox.Show("Password Updated Successfully");
+                MessageBox.Show("Password has been Updated Successfully");
             }
             var userObj = new EAD_Entities.UserDTO();
             userObj = EAD_BAL.UserBO.GetUserDataByLogin(login);
