@@ -46,7 +46,7 @@ namespace Assignment2
             try
             {
                 String fromDisplayEmail = "nayabmalik.my@gmail.com";
-                String fromPassword = "sairashakeel";
+                String fromPassword = "";
                 String fromDisplayNmae = "";
                 MailAddress fromAdress = new MailAddress(fromDisplayEmail, fromDisplayNmae);
                 MailAddress toAddress = new MailAddress(email);
