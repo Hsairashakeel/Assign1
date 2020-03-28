@@ -17,13 +17,17 @@ namespace EAD_BAL
         {
             return EAD_DAL.UserDAO.IsValidUser(login, pass);
         }
-        public static bool IsValidLogin(String login)
+        public static bool IsValidEmail(String email)
         {
-            return EAD_DAL.UserDAO.IsValidLogin(login);
+            return EAD_DAL.UserDAO.IsValidEmail(email);
         }
         public static bool IsExistingUser(String login)
         {
             return EAD_DAL.UserDAO.IsExistingUser(login);
+        }
+        public static bool IsExistingEmail(String email)
+        {
+            return EAD_DAL.UserDAO.IsExistingEmail(email);
         }
         public static object showData()
         {
@@ -36,6 +40,11 @@ namespace EAD_BAL
         public static UserDTO GetUserDataByLogin(string login)
         {
             return EAD_DAL.UserDAO.GetUserDataByLogin(login);
+
+        }
+        public static UserDTO GetUserDataByEmail(string email)
+        {
+            return EAD_DAL.UserDAO.GetUserDataByEmail(email);
 
         }
         public static int resetPassword(String pass, String login)

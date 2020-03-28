@@ -41,12 +41,12 @@ namespace Assignment2
                 MessageBox.Show("Please fill the email field");
                 return;
             }
-            bool result = UserBO.IsValidUser(nameTxt.Text, passwordTxt.Text);
+            bool result = UserBO.IsValidUser(nameTxt.Text.Trim(), passwordTxt.Text.Trim());
             if (result == true)
             {
                 MessageBox.Show("logged In");
                 var dto = new EAD_Entities.UserDTO();
-                dto = EAD_BAL.UserBO.GetUserDataByLogin(nameTxt.Text);
+                dto = EAD_BAL.UserBO.GetUserDataByLogin(nameTxt.Text.Trim());
                 this.Hide();
                 UserHome obj = new UserHome(dto.UserID, dto.Name);
                 obj.Show();
@@ -75,21 +75,9 @@ namespace Assignment2
                 MessageBox.Show("Please fill the email field");
                 return;
             }
-            if (nameTxt.Text == "")
-            {
-                MessageBox.Show("Please fill the username field");
-                return;
-
-            }
+          
             else
             {
-                bool result = UserBO.IsValidLogin(nameTxt.Text);
-                if (result == false)
-                {                    
-                    MessageBox.Show("Invalid username");
-                    return;
-
-                }
                 try
                 {
                     MailAddress mailAdd = new MailAddress(emailTxt.Text);
@@ -100,8 +88,18 @@ namespace Assignment2
                     MessageBox.Show("Invalid email address");
                     return;
                 }
+
+                bool result = UserBO.IsValidEmail(emailTxt.Text);
+                if (result == false)
+                {
+                    MessageBox.Show("Invalid username");
+                    return;
+
+                }
+                var dto = new EAD_Entities.UserDTO();
+                dto = EAD_BAL.UserBO.GetUserDataByEmail(emailTxt.Text);
                 this.Hide();
-                sendEmail m = new sendEmail(emailTxt.Text, nameTxt.Text);
+                sendEmail m = new sendEmail(emailTxt.Text,dto.Name);
                 m.Show();
 
             }

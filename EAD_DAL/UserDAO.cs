@@ -16,13 +16,13 @@ namespace EAD_DAL
             String sqlQuery = "";
             if (dto.UserID > 0)
             {
-                sqlQuery = String.Format(@"UPDATE [dbo].[UsersData] Set Name='{0}' ,Login='{1}',Password='{2}',Gender='{3}',Address='{4}',Age='{5}',NIC='{6}',DOB='{7}',IsCricket='{8}',Hockey='{9}',Chess='{10}',ImageName='{11}',CreateOn='{12}' WHERE UserID='{13}' ",
-                   dto.Name, dto.Login, dto.password, dto.gender, dto.adress, dto.age, dto.nic, dto.DOB, dto.cricket, dto.hockey, dto.chess, dto.imageNmae, dto.createOn, dto.UserID);
+                sqlQuery = String.Format(@"UPDATE [dbo].[UsersData] Set Name='{0}' ,Login='{1}',Password='{2}',Gender='{3}',Address='{4}',Age='{5}',NIC='{6}',DOB='{7}',IsCricket='{8}',Hockey='{9}',Chess='{10}',ImageName='{11}',CreateOn='{12}',Email='{13}' WHERE UserID='{14}' ",
+                   dto.Name, dto.Login, dto.password, dto.gender, dto.adress, dto.age, dto.nic, dto.DOB, dto.cricket, dto.hockey, dto.chess, dto.imageNmae, dto.createOn,dto.email, dto.UserID);
             }
             else
             {
-                sqlQuery = String.Format("INSERT INTO [dbo].[UsersData](Name,Login,Password,Gender,Address,Age,NIC,DOB,IsCricket,Hockey,Chess,ImageName,CreateOn)VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}')",
-                dto.Name, dto.Login, dto.password, dto.gender, dto.adress, dto.age, dto.nic, dto.DOB, dto.cricket, dto.hockey, dto.chess, dto.imageNmae, dto.createOn);
+                sqlQuery = String.Format("INSERT INTO [dbo].[UsersData](Name,Login,Password,Gender,Address,Age,NIC,DOB,IsCricket,Hockey,Chess,ImageName,CreateOn,Email)VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}')",
+                dto.Name, dto.Login, dto.password, dto.gender, dto.adress, dto.age, dto.nic, dto.DOB, dto.cricket, dto.hockey, dto.chess, dto.imageNmae, dto.createOn, dto.email);
             }
             using (DBhelper helper = new DBhelper())
             {
@@ -40,10 +40,10 @@ namespace EAD_DAL
                 return helper.Adapter(sqlQuery);
             }
         }
-        public static bool IsValidLogin(String login)
+        public static bool IsValidEmail(String email)
         {
             String sqlQuery = "";
-            sqlQuery = String.Format("select * from UsersData WHERE Login = '{0}'  ", login);
+            sqlQuery = String.Format("select * from UsersData WHERE Email = '{0}'  ", email);
             using (DBhelper helper = new DBhelper())
             {
                 return helper.Adapter(sqlQuery);
@@ -53,6 +53,15 @@ namespace EAD_DAL
         {
             String sqlQuery = "";
             sqlQuery = String.Format("select * from UsersData WHERE Login = '{0}' ", login);
+            using (DBhelper helper = new DBhelper())
+            {
+                return helper.Adapter(sqlQuery);
+            }
+        }
+        public static bool IsExistingEmail(String email)
+        {
+            String sqlQuery = "";
+            sqlQuery = String.Format("select * from UsersData WHERE Email = '{0}' ", email);
             using (DBhelper helper = new DBhelper())
             {
                 return helper.Adapter(sqlQuery);
@@ -75,6 +84,7 @@ namespace EAD_DAL
             dto.chess = reader.GetBoolean(11);
             dto.imageNmae = reader.GetString(12);
             dto.createOn = reader.GetDateTime(13);
+            dto.email = reader.GetString(14);
             //string applicationBsePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
             //String pathToSaveImage = applicationBsePath + @"\images\";
 
@@ -98,6 +108,20 @@ namespace EAD_DAL
         public static UserDTO GetUserDataByLogin(string login)
         {
             var query = String.Format("select * from UsersData where Login='{0}'", login);
+            using (DBhelper helper = new DBhelper())
+            {
+                var reader = helper.ExecuteReader(query);
+                UserDTO dto = null;
+                if (reader.Read())
+                {
+                    dto = fillDTO(reader);
+                }
+                return dto;
+            }
+        }
+        public static UserDTO GetUserDataByEmail(string email)
+        {
+            var query = String.Format("select * from UsersData where Email='{0}'", email);
             using (DBhelper helper = new DBhelper())
             {
                 var reader = helper.ExecuteReader(query);

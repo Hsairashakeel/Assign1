@@ -12,6 +12,8 @@ namespace EAD_Entities
         public string Name { get; set; }
         public string Login { get; set; }
         public string password { get; set; }
+        public string email { get; set; }
+
         public char gender { get; set; }
         public string adress { get; set; }
         public Decimal age { get; set; }

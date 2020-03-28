@@ -42,6 +42,8 @@ namespace Assignment2
                 nic.Text = dto.nic;
                 emailTxt.Text = dto.Login;
                 (DOBTxt.Value) = dto.DOB;
+                emailTxt.Text = dto.email;
+
                 string gen;
                 if (dto.gender == 'm')
                 {
@@ -84,7 +86,7 @@ namespace Assignment2
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
+            
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -133,6 +135,16 @@ namespace Assignment2
             if (passwordTxt.Text == "")
             {
                 MessageBox.Show("Please fill the password field");
+                return;
+            }
+            try
+            {
+                MailAddress mailAdd = new MailAddress(emailTxt.Text);
+
+            }
+            catch
+            {
+                MessageBox.Show("Invalid email address");
                 return;
             }
             if (loginTxt.Text == "")
@@ -195,13 +207,14 @@ namespace Assignment2
                 string imagPath = pathToSaveImage + uniqName;
                 profilePhoto.Image.Save(imagPath);
             }
+           
             if (id != 0)
             {
                 var dto = new EAD_Entities.UserDTO();
-                dto.Name = nameTxt.Text;
-                dto.password = passwordTxt.Text;
-                dto.Login = loginTxt.Text;
-                dto.nic = nic.Text;
+                dto.Name = nameTxt.Text.Trim();
+                dto.password = passwordTxt.Text.Trim();
+                dto.Login = loginTxt.Text.Trim();
+                dto.nic = nic.Text.Trim();
                 dto.DOB = (DOBTxt.Value);
                 dto.gender = gen;
                 dto.imageNmae = uniqName;
@@ -209,51 +222,62 @@ namespace Assignment2
                 dto.cricket = Cricket;
                 dto.chess = Chess;
                 dto.hockey = Hockey;
-                dto.adress = adressTxt.Text;
+                dto.adress = adressTxt.Text.Trim();
                 dto.age = ageTxt.Value;
                 dto.UserID = id;
-                int count = UserBO.Save(dto);
-                if (count > 0)
+                dto.email = emailTxt.Text.Trim();
+                              
                 {
-
-                    MessageBox.Show("successful");
-
-                    this.Hide();
-                    if (typeOfUser == "A")
+                    int count = UserBO.Save(dto);
+                    if (count > 0)
                     {
-                        AdminHome obj = new AdminHome();
-                        obj.Show();
+
+                        MessageBox.Show("successful");
+
+                        this.Hide();
+                        if (typeOfUser == "A")
+                        {
+                            AdminHome obj = new AdminHome();
+                            obj.Show();
+
+                        }
+                        else
+                        {
+                            UserHome obj = new UserHome(dto.UserID, dto.Name);
+                            obj.Show();
+                        }
 
                     }
-                    else
-                    {
-                        UserHome obj = new UserHome(dto.UserID, dto.Name);
-                        obj.Show();
-                    }
-
                 }
             }
             else
 
             {
                 var dto = new EAD_Entities.UserDTO();
-                dto.Name = nameTxt.Text;
-                dto.password = passwordTxt.Text;
-                dto.Login = loginTxt.Text;
-                dto.nic = nic.Text;
+                dto.Name = nameTxt.Text.Trim();
+                dto.password = passwordTxt.Text.Trim();
+                dto.Login = loginTxt.Text.Trim();
+                dto.nic = nic.Text.Trim();
                 dto.DOB = (DOBTxt.Value);
                 dto.gender = gen;
                 dto.createOn = DateTime.Now;
                 dto.cricket = Cricket;
                 dto.chess = Chess;
                 dto.hockey = Hockey;
-                dto.adress = adressTxt.Text;
+                dto.adress = adressTxt.Text.Trim();
                 dto.age = ageTxt.Value;
                 dto.imageNmae = uniqName;
+                dto.email =( emailTxt.Text).Trim();
                 bool result = UserBO.IsExistingUser(loginTxt.Text);
                 if (result == true)
                 {
                     MessageBox.Show("username already exists");
+                    return;
+                }
+                bool result2 = UserBO.IsExistingEmail(emailTxt.Text);
+                if (result2 == true)
+                {
+                    MessageBox.Show("email already exists");
                     return;
                 }
                 else
@@ -264,7 +288,7 @@ namespace Assignment2
 
                         MessageBox.Show("successful");
                         var userObj = new EAD_Entities.UserDTO();
-                        userObj = EAD_BAL.UserBO.GetUserDataByLogin(loginTxt.Text);
+                        userObj = EAD_BAL.UserBO.GetUserDataByLogin(loginTxt.Text.Trim());
                         this.Hide();
                         UserHome obj = new UserHome(userObj.UserID, userObj.Name);
                         obj.Show();

@@ -25,13 +25,17 @@ namespace Assignment2
         private void UserHome_Load(object sender, EventArgs e)
         {
             label1.Text = "Welcome " + name;
+            
             var dto = new EAD_Entities.UserDTO();
             dto = EAD_BAL.UserBO.GetUserData(id);
-            var imagName = dto.imageNmae;
-            string applicationBsePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-            string imgPath = (applicationBsePath + @"\images\");
-            string path = imgPath + imagName;
-            pictureBox1.Load(path);
+            if (dto.imageNmae != "")
+            {
+                var imagName = dto.imageNmae;
+                string applicationBsePath = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+                string imgPath = (applicationBsePath + @"\images\");
+                string path = imgPath + imagName;
+                pictureBox1.Load(path);
+            }
 
 
         }

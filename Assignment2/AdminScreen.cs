@@ -29,7 +29,7 @@ namespace Assignment2
                 MessageBox.Show("Please fill the email field");
                 return;
             }
-            bool result = EAD_BAL.AdminBO.IsValidUser(nameTxt.Text, passwordTxt.Text);
+            bool result = EAD_BAL.AdminBO.IsValidUser(nameTxt.Text.Trim(), passwordTxt.Text.Trim());
             if (result == true)
             {
                 this.Hide();
