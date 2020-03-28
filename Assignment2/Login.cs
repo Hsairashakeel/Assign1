@@ -80,7 +80,7 @@ namespace Assignment2
             {
                 try
                 {
-                    MailAddress mailAdd = new MailAddress(emailTxt.Text);
+                    MailAddress mailAdd = new MailAddress(emailTxt.Text.Trim());
                     
                 }
                 catch
@@ -92,12 +92,12 @@ namespace Assignment2
                 bool result = UserBO.IsValidEmail(emailTxt.Text);
                 if (result == false)
                 {
-                    MessageBox.Show("Invalid username");
+                    MessageBox.Show("Invalid Email address");
                     return;
 
                 }
                 var dto = new EAD_Entities.UserDTO();
-                dto = EAD_BAL.UserBO.GetUserDataByEmail(emailTxt.Text);
+                dto = EAD_BAL.UserBO.GetUserDataByEmail(emailTxt.Text.Trim());
                 this.Hide();
                 sendEmail m = new sendEmail(emailTxt.Text,dto.Name);
                 m.Show();

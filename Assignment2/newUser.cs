@@ -139,7 +139,7 @@ namespace Assignment2
             }
             try
             {
-                MailAddress mailAdd = new MailAddress(emailTxt.Text);
+                MailAddress mailAdd = new MailAddress(emailTxt.Text.Trim());
 
             }
             catch
@@ -268,13 +268,13 @@ namespace Assignment2
                 dto.age = ageTxt.Value;
                 dto.imageNmae = uniqName;
                 dto.email =( emailTxt.Text).Trim();
-                bool result = UserBO.IsExistingUser(loginTxt.Text);
+                bool result = UserBO.IsExistingUser(loginTxt.Text.Trim());
                 if (result == true)
                 {
                     MessageBox.Show("username already exists");
                     return;
                 }
-                bool result2 = UserBO.IsExistingEmail(emailTxt.Text);
+                bool result2 = UserBO.IsExistingEmail(emailTxt.Text.Trim());
                 if (result2 == true)
                 {
                     MessageBox.Show("email already exists");

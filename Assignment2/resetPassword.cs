@@ -34,7 +34,7 @@ namespace Assignment2
                 return;
             }
 
-            int count = EAD_BAL.UserBO.resetPassword(passTxt.Text, login);
+            int count = EAD_BAL.UserBO.resetPassword(passTxt.Text.Trim(), login);
             if (count > 0)
             {
                 MessageBox.Show("Password has been Updated Successfully");
