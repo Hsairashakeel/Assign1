@@ -11,7 +11,8 @@ namespace EAD_DAL
    internal class DBhelper :IDisposable
     {
         
-            String str = "server=HAIER-PC\\SQLEXPRESS;database=Assignment2;UID=sa;password=sairashakeel";
+           String str =System.Configuration.ConfigurationManager.ConnectionStrings["myConString"].ConnectionString;
+
             SqlConnection _conn = null;
             public DBhelper()
             {
