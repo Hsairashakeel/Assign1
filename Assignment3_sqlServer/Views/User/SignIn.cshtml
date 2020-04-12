@@ -13,12 +13,15 @@
                 var email = $("#email").val();
                 if (username == "" || password == "" || email=="" || Confirmpassword=="" ) {
                     alert("please check your input");
+                    return false;
                 }
-                if (password != Confirmpassword)
-                {
-                     alert("Enter the same password in Confirm Password field");
-                }
+                
                 else {
+                    if (password != Confirmpassword)
+                {
+                        alert("Enter the same password in Confirm Password field");
+                        return false;
+                }
                     var settings = {
                         type: "POST",
                         datatype: "json",
