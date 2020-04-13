@@ -20,6 +20,7 @@ namespace Assignment3_sqlServer.Controllers
         {
             return View();
         }
+        
         public ActionResult Home()
         {
             if (Session["login"] == null)
@@ -31,9 +32,45 @@ namespace Assignment3_sqlServer.Controllers
 
 
         }
+        public JsonResult fetchFoldersData(String id)
+        {
+
+            object data = null;
+            try
+            {
+                var flag = false;
+                List<String> names = new List<String>();
+                int ID = Int32.Parse(id);
+                names = FolderBO.GetFolderNamesWithParentNull(ID);
+                List<String> list = new List<String>();
+                if(names!=null)
+                {
+                    
+                    flag = true;
+                    data = new
+                    {
+                        valid = flag,
+                        list = names
+                    };
+                }               
+
+            }
+            catch (Exception e)
+            {
+                data = new
+                {
+                    valid = false,
+                    list = ""
+                    
+                };
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult validateUser(String name, String passw)
         {
+           
             object data = null;
             try
             {
@@ -42,6 +79,9 @@ namespace Assignment3_sqlServer.Controllers
                 bool result = UserBO.IsValidUser(name, passw);
                 if(result==true)
                 {
+                    var dto = new UserDTO();
+                    dto = UserBO.GetUserDataByLogin(name);
+                    Session["id"] = dto.UserID;
                     Session["login"] = true;
                     flag = true;
                     url = "/User/Home";

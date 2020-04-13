@@ -25,5 +25,12 @@ namespace BAL_assign3
         {
             return DAL_assign3.UserDAO.IsExistingEmail(email);
         }
+        public static UserDTO GetUserDataByLogin(string login)
+        {
+            return DAL_assign3.UserDAO.GetUserDataByLogin(login);
+
+        }
+
+
     }
 }

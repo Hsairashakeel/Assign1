@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -8,10 +7,60 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
     <title>Home</title>
+    <script>
+        $(document).ready(function () {
+                var userID = $("#user_id").val();
+                 var settings = {
+                        type: "POST",
+                        datatype: "json",
+                        url: "/User/fetchFoldersData",
+                     data: {
+                         "id": userID
+                        },
+
+                        success: function (response) {
+                            if (response.valid == true)
+                            {
+                                var resp = (response.list);
+                                for (x in resp) {
+                                    $("#Maindiv").append("<div><button class= 'btn btn-warning'>" + resp[x] + "<div>");
+                                    $("#Maindiv").append("<br>");
+                                }
+
+                            }
+                            else {
+                                alert('No parent Folder exists');
+                            }
+                        },
+                        error: function (response) {
+                            alert("error");
+                        }
+                    };
+                    $.ajax(settings);
+                    return false;
+                });
+    </script>
 </head>
+
 <body>
-    <div> 
+    <div class="container">
+        <div class="text-center mt-3 mb-3">
+            <a href="Login"><button type="button" class="btn btn-info">LOG OUT</button></a>
+            <input type="hidden" id='user_id' value="@Session["id"]">
+            <button class="btn btn-dark">CREATE FOLDER</button>
+        </div>
     </div>
+    <div id="Maindiv" class="text-center" style="margin-top:20px;">
+        <div style='font-size: 35px'>Your Folders.....</div>
+    </div>
+
 </body>
 </html>
+
+
