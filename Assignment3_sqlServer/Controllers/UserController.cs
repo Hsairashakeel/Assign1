@@ -32,25 +32,67 @@ namespace Assignment3_sqlServer.Controllers
 
 
         }
-        public JsonResult fetchFoldersData(String id)
+        public JsonResult createFolder(String folderName,String UID, int pid)
+        {
+            object data = null;
+            try
+            {
+                var flag = false;
+                int uid = Int32.Parse(UID);
+                bool isExisting = false;
+                if (pid!=0)
+                {
+                    isExisting = FolderBO.IsExistingFolder(folderName, pid);
+                }
+                if (isExisting == false)
+                {
+                    int count = FolderBO.Save(folderName, pid, uid);
+                    if (count > 0)
+                    {
+                        flag = true;
+                        data = new
+                        {
+                            valid = flag,
+                        };
+                    }
+                }
+                else
+                {
+                    data = new
+                    {
+                        valid = false,
+                    };
+                }
+
+            }
+            catch (Exception e)
+            {
+                data = new
+                {
+                    valid = false,
+                };
+            }
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult fetchFoldersData(String id,int pid)
         {
 
             object data = null;
             try
             {
                 var flag = false;
-                List<String> names = new List<String>();
-                int ID = Int32.Parse(id);
-                names = FolderBO.GetFolderNamesWithParentNull(ID);
+                List<FolderDTO> dto = new List<FolderDTO>();
+                int ID = Int32.Parse(id);                
+                dto = FolderBO.GetFolderNames(ID,pid);
                 List<String> list = new List<String>();
-                if(names!=null)
+                if(dto!=null)
                 {
                     
                     flag = true;
                     data = new
                     {
                         valid = flag,
-                        list = names
+                        list = dto
                     };
                 }               
 
