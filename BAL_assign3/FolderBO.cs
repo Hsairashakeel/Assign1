@@ -9,7 +9,7 @@ namespace BAL_assign3
 {
     public class FolderBO
     {
-        public static List<FolderDTO> GetFolderNames(int id,int pid)
+        public static List<FolderDTO> GetFolderNames(int id, int pid)
         {
             return DAL_assign3.FolderDAO.GetFolderNames(id, pid);
         }

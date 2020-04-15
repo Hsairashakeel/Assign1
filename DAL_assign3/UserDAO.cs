@@ -1,7 +1,7 @@
 ﻿using Entities_assign3;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,67 +13,75 @@ namespace DAL_assign3
         public static int Save(UserDTO dto)
         {
 
-            String sqlQuery = "";
-          
-            
-                sqlQuery = String.Format("INSERT INTO [dbo].[UserInfo](Login,Password,email)VALUES('{0}','{1}','{2}')",
+            String MysqlQuery = "";
+
+
+                MysqlQuery = String.Format("INSERT INTO users(username,password,email)VALUES('{0}','{1}','{2}')",
                  dto.Login, dto.password,dto.email);
             
             using (DBhelper helper = new DBhelper())
             {
-                return helper.ExecuteQuery(sqlQuery);
+                return helper.ExecuteQuery(MysqlQuery);
             }
 
 
         }
         public static bool IsValidUser(String login, string password)
         {
-            String sqlQuery = "";
-            sqlQuery = String.Format("select * from UserInfo WHERE Login = '{0}' AND Password = '{1}' ", login, password);
+            String MysqlQuery = "";
+            MysqlQuery = String.Format("select * from users WHERE username = '{0}' AND password = '{1}' ", login, password);
             using (DBhelper helper = new DBhelper())
             {
-                return helper.Adapter(sqlQuery);
+                return helper.Adapter(MysqlQuery);
             }
         }
-        public static bool IsExistingLogin(String login)
-        {
-            String sqlQuery = "";
-            sqlQuery = String.Format("select * from UserInfo WHERE Login = '{0}' ", login);
-            using (DBhelper helper = new DBhelper())
-            {
-                return helper.Adapter(sqlQuery);
-            }
-        }
-        public static bool IsExistingEmail(String email)
-        {
-            String sqlQuery = "";
-            sqlQuery = String.Format("select * from UserInfo WHERE email = '{0}' ", email);
-            using (DBhelper helper = new DBhelper())
-            {
-                return helper.Adapter(sqlQuery);
-            }
-        }
-        public static UserDTO fillDTO(SqlDataReader reader)
+        public static UserDTO fillDTO(MySqlDataReader reader)
         {
             var dto = new UserDTO();
             dto.UserID = reader.GetInt32(0);
             dto.Login = reader.GetString(1);
-            dto.password = reader.GetString(2);           
-            dto.email = reader.GetString(3);
+            dto.email = reader.GetString(2);
+            dto.password = reader.GetString(3);
             return dto;
         }
         public static UserDTO GetUserDataByLogin(string login)
         {
-            var query = String.Format("select * from UserInfo where Login='{0}'", login);
+            var query = String.Format("select * from users where username='{0}'", login);
             using (DBhelper helper = new DBhelper())
             {
-                var reader = helper.ExecuteReader(query);
-                UserDTO dto = null;
-                if (reader.Read())
+                try
                 {
-                    dto = fillDTO(reader);
+                    var reader = helper.ExecuteReader(query);
+                    UserDTO dto = null;
+                    if (reader.Read())
+                    {
+                        dto = fillDTO(reader);
+                    }
+                    return dto;
                 }
-                return dto;
+                catch(Exception e)
+                {
+                    throw;
+                }
+                
+            }
+        }
+        public static bool IsExistingLogin(String login)
+        {
+            String MysqlQuery = "";
+            MysqlQuery = String.Format("select * from users WHERE username = '{0}' ", login);
+            using (DBhelper helper = new DBhelper())
+            {
+                return helper.Adapter(MysqlQuery);
+            }
+        }
+        public static bool IsExistingEmail(String email)
+        {
+            String MysqlQuery = "";
+            MysqlQuery = String.Format("select * from users WHERE email = '{0}' ", email);
+            using (DBhelper helper = new DBhelper())
+            {
+                return helper.Adapter(MysqlQuery);
             }
         }
     }

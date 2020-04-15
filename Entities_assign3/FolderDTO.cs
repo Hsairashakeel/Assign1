@@ -12,6 +12,5 @@ namespace Entities_assign3
         public int folderId { get; set; }
         public int parentFolderId { get; set; }
         public String FolderName { get; set; }
-
     }
 }

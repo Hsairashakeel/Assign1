@@ -17,6 +17,11 @@ namespace BAL_assign3
         {
             return DAL_assign3.UserDAO.IsValidUser(login, pass);
         }
+        public static UserDTO GetUserDataByLogin(string login)
+        {
+            return DAL_assign3.UserDAO.GetUserDataByLogin(login);
+
+        }
         public static bool IsExistingLogin(String login)
         {
             return DAL_assign3.UserDAO.IsExistingLogin(login);
@@ -25,13 +30,5 @@ namespace BAL_assign3
         {
             return DAL_assign3.UserDAO.IsExistingEmail(email);
         }
-        public static UserDTO GetUserDataByLogin(string login)
-        {
-            return DAL_assign3.UserDAO.GetUserDataByLogin(login);
-
-        }
-        
-
-
     }
 }
