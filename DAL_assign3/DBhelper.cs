@@ -10,7 +10,8 @@ namespace DAL_assign3
 {
     internal class DBhelper : IDisposable
     {
-        String str = "server=HAIER-PC\\SQLEXPRESS;database=Assignment3;UID=sa;password=sairashakeel";
+
+        String str = System.Configuration.ConfigurationManager.ConnectionStrings["myConString"].ConnectionString;
         SqlConnection _conn = null;
         public DBhelper()
         {

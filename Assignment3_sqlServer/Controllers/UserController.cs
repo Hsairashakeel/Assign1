@@ -29,8 +29,6 @@ namespace Assignment3_sqlServer.Controllers
             }
             else
                 return View();
-
-
         }
         public JsonResult createFolder(String folderName,String UID, int pid)
         {
