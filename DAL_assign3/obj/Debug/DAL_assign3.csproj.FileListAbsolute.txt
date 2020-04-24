@@ -1,0 +1,16 @@
+C:\Users\HS\source\repos\DAL_assign3\obj\Debug\DAL_assign3.csprojAssemblyReference.cache
+C:\Users\HS\source\repos\DAL_assign3\bin\Debug\DAL_assign3.dll
+C:\Users\HS\source\repos\DAL_assign3\bin\Debug\DAL_assign3.pdb
+C:\Users\HS\source\repos\DAL_assign3\bin\Debug\Entities_assign3.dll
+C:\Users\HS\source\repos\DAL_assign3\bin\Debug\Entities_assign3.pdb
+C:\Users\HS\source\repos\DAL_assign3\obj\Debug\DAL_assign3.csproj.CopyComplete
+C:\Users\HS\source\repos\DAL_assign3\obj\Debug\DAL_assign3.dll
+C:\Users\HS\source\repos\DAL_assign3\obj\Debug\DAL_assign3.pdb
+C:\Users\HS\source\repos\gitHubAssignment3\EAD_S20_BSEF17M025\DAL_assign3\bin\Debug\DAL_assign3.dll
+C:\Users\HS\source\repos\gitHubAssignment3\EAD_S20_BSEF17M025\DAL_assign3\bin\Debug\DAL_assign3.pdb
+C:\Users\HS\source\repos\gitHubAssignment3\EAD_S20_BSEF17M025\DAL_assign3\bin\Debug\Entities_assign3.dll
+C:\Users\HS\source\repos\gitHubAssignment3\EAD_S20_BSEF17M025\DAL_assign3\bin\Debug\Entities_assign3.pdb
+C:\Users\HS\source\repos\gitHubAssignment3\EAD_S20_BSEF17M025\DAL_assign3\obj\Debug\DAL_assign3.csprojAssemblyReference.cache
+C:\Users\HS\source\repos\gitHubAssignment3\EAD_S20_BSEF17M025\DAL_assign3\obj\Debug\DAL_assign3.csproj.CopyComplete
+C:\Users\HS\source\repos\gitHubAssignment3\EAD_S20_BSEF17M025\DAL_assign3\obj\Debug\DAL_assign3.dll
+C:\Users\HS\source\repos\gitHubAssignment3\EAD_S20_BSEF17M025\DAL_assign3\obj\Debug\DAL_assign3.pdb

@@ -1,0 +1,177 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <title>Home</title>
+   
+</head>
+<body>
+    <div class="modal" id="customModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">FOLDER</h4>
+                </div>
+                <form id="form" method="post">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="folder">Folder Name</label>
+                            <input type="text" class="form-control" onkeyup="checkInput()" name="folder" id="folder" required>
+                            <p><span id="error" style="color:red;"></span></p>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary btn-md " id="close" onclick="close()" data-dismiss="modal">DISMISS</button>
+                        <button onclick="createFolder()" class="btn btn-info btn-md " id="btn">CREATE</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="text-center mt-3 mb-3">
+            <a href="Login"><button type="button" class="btn btn-info">LOG OUT</button></a>
+            <input type="hidden" id='user_id' value="@Session["id"]">
+            <button onclick="show()" class="btn btn-dark">CREATE FOLDER</button>
+        </div>
+    </div>
+    <div id="Maindiv" class="text-center" style="margin-top:20px;">
+        <div style='font-size: 35px'></div>
+    </div>
+    <script>
+        let selectedID = 0;
+        $(document).ready(function () {
+            fetchFolders(0);
+        });
+        function createFolder() {
+            var userID = $("#user_id").val();
+            var fName = $("#folder").val();
+            var parentId = selectedID;
+            var settings = {
+                type: "POST",
+                datatype: "json",
+                url: "/User/createFolder",
+                data: {
+                    "folderName": fName,
+                    "UID": userID,
+                    "pid": parentId
+                },
+
+                success: function (response) {
+                    if (response.valid == true)
+                    {
+                         close();
+                         window.stop();
+                        fetchFolders(parentId);
+                    }
+                    else {
+                        alert('Folder name already exists in this directory');
+                         window.stop();
+
+                        show();
+                    }
+                },
+                error: function (response) {
+                    alert("error");
+                }
+            };
+            $.ajax(settings);
+            return false;
+
+
+        }
+        function fetchFolders(i)
+        {
+
+                var userID = $("#user_id").val();
+                var mainDiv = document.getElementById('Maindiv');
+                $("#Maindiv").empty();
+                var settings = {
+                type: "POST",
+                datatype: "json",
+                url: "/User/fetchFoldersData",
+                data: {
+                    "id": userID,
+                    "pid": i
+                },
+
+                success: function (response) {
+                    if (response.valid == true)
+                    {
+                        var myObj = (response.list);
+                        console.log(myObj);
+                        var mainDiv = document.getElementById('Maindiv');
+                        for (x in myObj) {
+                            var div1 = document.createElement('div');
+                            div1.setAttribute('id', myObj[x].folderId);
+                            div1.style = 'word-wrap: break-word';
+                            div1.style.minWidth = '70px';
+                            div1.className = "btn btn-primary mt-1"
+                            div1.innerHTML = myObj[x].FolderName;
+                            mainDiv.append(div1);
+                            mainDiv.append(document.createElement("br"));
+                            mainDiv.append(document.createElement("br"));
+                            div1.onclick = function (event) {
+                                var ele = document.getElementById(event.target.id);
+                                ele.style.backgroundColor = 'salmon';
+                            }
+                            div1.ondblclick = function (event) {
+                                selectedID = myObj[x].folderId;
+                                fetchFolders(event.target.id);
+                            }
+
+                        }
+                    }
+                    else {
+                        alert('No parent Folder exists');
+                    }
+                },
+                error: function (response) {
+                    alert("error");
+                }
+            };
+            $.ajax(settings);
+            return false;
+        }
+        function checkInput()
+        {
+            var input=document.getElementById('folder').value;
+            var letters = /^[0-9a-zA-Z]+$/;
+            if (letters.test(input))
+            {
+                document.getElementById('error').innerText="";
+                document.getElementById('btn').disabled=false;
+                return true;
+            }
+            else
+            {
+                document.getElementById('error').innerText="Not a valid folder name"
+                document.getElementById('btn').disabled=true;
+                return false;
+            }
+        } 
+        function close()
+        {
+            document.getElementById('folder').value='';
+            $('#customModal').modal('hide');
+        }
+        function show()
+        {
+            document.getElementById('error').innerText="";
+            $('#customModal').modal('show');
+        }
+    </script>
+</body>
+</html>
+
+
