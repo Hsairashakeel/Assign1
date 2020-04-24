@@ -23,11 +23,11 @@ namespace Assignment3_sqlServer.Controllers
         
         public ActionResult Home()
         {
-            if (Session["login"] == null)
-            {
-                return Redirect("Login");
-            }
-            else
+            //if (Session["login"] == null)
+            //{
+            //    return Redirect("Login");
+            //}
+            //else
                 return View();
         }
         public JsonResult createFolder(String folderName,String UID, int pid)

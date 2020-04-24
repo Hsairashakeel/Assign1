@@ -7,6 +7,8 @@
     <script>
         $(document).ready(function () {
             $("#login").click(function () {
+                var basePath="https://localhost:44341/"
+
                 var username = $("#username").val();
                 var password = $("#password").val();
                 if (username == "" || password == "") {
@@ -14,21 +16,28 @@
                 }
                 else {
                     var settings = {
-                        type: "POST",
+                        type: "GET",
                         datatype: "json",
-                        url: "/User/validateUser",
+                        url: basePath +  "api/Values/GetToken",
                         data: {
                             "name": username,
-                            "passw": password
+                            "passw": password,
+                            "grant_type": password
+
                         },
 
                         success: function (response) {
-                            if (response.valid == true) {
-                                location.href = response.urlToRedirect;
-                            }
-                            else {
-                                alert('invalid username/password');
-                            }
+                            //if (response.valid == true) {
+                                alert("success");
+                                console.log(response);
+                                sessionStorage.setItem('accessToken', response.access_token);
+                                sessionStorage.setItem('userID', response.userid);
+                                 window.location.href = "https://localhost:44384/User/Home";
+
+                            //}
+                            //else {
+                            //    alert('invalid username/password');
+                            //}
                         },
                         error: function (response) {
                             alert("error");

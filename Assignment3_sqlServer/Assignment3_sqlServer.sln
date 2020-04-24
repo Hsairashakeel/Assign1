@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL_assign3", "..\DAL_assig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Entities_assign3", "..\Entities_assign3\Entities_assign3.csproj", "{086CEA61-9EF6-4DD5-A2D8-70CB5C27CCB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "webAPI", "..\webAPI\webAPI.csproj", "{6D4B8D3B-96CE-4208-B44C-ED5C73CEA1D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{086CEA61-9EF6-4DD5-A2D8-70CB5C27CCB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{086CEA61-9EF6-4DD5-A2D8-70CB5C27CCB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{086CEA61-9EF6-4DD5-A2D8-70CB5C27CCB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D4B8D3B-96CE-4208-B44C-ED5C73CEA1D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D4B8D3B-96CE-4208-B44C-ED5C73CEA1D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D4B8D3B-96CE-4208-B44C-ED5C73CEA1D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D4B8D3B-96CE-4208-B44C-ED5C73CEA1D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
