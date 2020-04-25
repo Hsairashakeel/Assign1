@@ -90,7 +90,6 @@ namespace webAPI.Controllers
             try
             {
 
-                var flag = false;
                 bool result = UserBO.IsValidUser(name, passw);
                 if (result == true)
                 {
@@ -158,7 +157,6 @@ namespace webAPI.Controllers
                     int ID = Int32.Parse(id);
                     var flag = false;
                     List<FolderDTO> dto = new List<FolderDTO>();
-                    //int ID = Int32.Parse(id);
                     dto = FolderBO.GetFolderNames(ID, pid);
                     List<String> list = new List<String>();
                     if (dto != null)
@@ -195,7 +193,6 @@ namespace webAPI.Controllers
                 dto.Login = obj.name;
                 dto.password = obj.passw;
                 dto.email = obj.email;
-                var url = "";
                 var flag = false;
                 bool isExLogin = UserBO.IsExistingLogin(obj.name);
                 bool isExEmail = UserBO.IsExistingEmail(obj.email);
@@ -231,10 +228,7 @@ namespace webAPI.Controllers
             }
             return data;
         }
-
-
-        
-
+       
     }
     
 }
