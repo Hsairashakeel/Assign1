@@ -18,7 +18,8 @@
                     var settings = {
                         type: "GET",
                         datatype: "json",
-                        url: basePath +  "api/Values/GetToken",
+                        url: basePath + "api/Values/validateUser",
+                       
                         data: {
                             "name": username,
                             "passw": password,
@@ -27,20 +28,39 @@
                         },
 
                         success: function (response) {
-                            //if (response.valid == true) {
-                                alert("success");
-                                console.log(response);
-                                sessionStorage.setItem('accessToken', response.access_token);
-                                sessionStorage.setItem('userID', response.userid);
-                                 window.location.href = "https://localhost:44384/User/Home";
+                            if (response.valid == true) {
+                                sessionStorage.setItem('accessToken', response.token);
 
-                            //}
-                            //else {
-                            //    alert('invalid username/password');
-                            //}
+                                var settings = {
+                                    type: "GET",
+                                    datatype: "json",
+
+                                    url: '/User/setSession',
+
+                                    data: {
+                                        UID: response.userObj.UserID
+
+                                    },
+
+                                    success: function (response) {
+
+                                        if (response.valid == true) {
+                                            window.location.href = "https://localhost:44384/User/Home";
+                                        }
+                                    },
+                                    error: function (response) {
+                                        alert("Error");
+                                    }
+                                };
+                                $.ajax(settings);
+                                return false;
+                            }
+                            else {
+                                 alert("invalid username/password");
+                            }
                         },
                         error: function (response) {
-                            alert("error");
+                            alert("Error");
                         }
                     };
                     $.ajax(settings);

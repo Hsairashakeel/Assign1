@@ -22,10 +22,12 @@
                         alert("Enter the same password in Confirm Password field");
                         return false;
                 }
+                    var basePath="https://localhost:44341/"
+
                     var settings = {
                         type: "POST",
                         datatype: "json",
-                        url: "/User/InsertUser",
+                        url: basePath + "api/Values/InsertUser",
                         data: {
                             "name": username,
                             "passw": password,
@@ -34,7 +36,8 @@
 
                         success: function (response) {
                             if (response.valid == true) {
-                                location.href = response.urlToRedirect;
+                                location.href = "https://localhost:44384/User/Login";
+;
                             }
                             else {
                                 alert('username/email already exits');

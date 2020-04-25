@@ -23,20 +23,28 @@ namespace Assignment3_sqlServer.Controllers
         
         public ActionResult Home()
         {
-            //if (Session["login"] == null)
-            //{
-            //    return Redirect("Login");
-            //}
-            //else
                 return View();
         }
-        public JsonResult createFolder(String folderName,String UID, int pid)
+        public JsonResult setSession(int UID)
+        {
+            object data = null;
+             Session["id"] = UID;
+            var flag = true;
+            data = new
+            {
+                valid = flag,
+            };
+            return Json(data, JsonRequestBehavior.AllowGet);
+
+        }
+        public JsonResult createFolder(String folderName, int pid)
         {
             object data = null;
             try
             {
                 var flag = false;
-                int uid = Int32.Parse(UID);
+                var UserID = Session["id"].ToString();
+                int uid = Int32.Parse(UserID);
                 bool isExisting = false;
                 if (pid!=0)
                 {
@@ -180,7 +188,6 @@ namespace Assignment3_sqlServer.Controllers
                     {
                         valid = false,
                         urlToRedirect = ""
-
                     };
                 }
             }
