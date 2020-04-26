@@ -39,13 +39,12 @@
 
                                     data: {
                                         UID: response.userObj.UserID
-
                                     },
 
                                     success: function (response) {
 
                                         if (response.valid == true) {
-                                            window.location.href = "https://localhost:44384/User/Home";
+                                            window.location.href = '/User/Home';
                                         }
                                     },
                                     error: function (response) {

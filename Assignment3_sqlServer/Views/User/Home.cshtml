@@ -109,7 +109,6 @@
                  
                 data: {
                     "pid": i,
-                    "id": userID
                 },
                     success: function (response) {
                     if (response.valid == true)
@@ -130,9 +129,11 @@
                                 var ele = document.getElementById(event.target.id);
                                 ele.style.backgroundColor = 'salmon';
                             }
+                           debugger;
+
                             div1.ondblclick = function (event) {
                                 selectedID = myObj[x].folderId;
-                                fetchFolders(event.target.id);
+                                fetchFolders(selectedID);
                             }
 
                         }
